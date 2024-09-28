@@ -1,0 +1,13 @@
+## This script contains steps for annotating MHC class II genes on the reference genome assembly and 28 PacBio de novo genome assemblies.
+## Programs used NCBI BLAST, LiftOff, IGV. 
+## RNASeq data from eight tissues was used to determine exon-intron boundaries
+## Initial query used for BLAST is in supplementary file # (CDS.fa).
+# blastdb was made using -
+
+# blast was performed with -
+blastn -db ${db}CS2_hap1 -query ${query} -outfmt 6 -out ${out}CS2_hap1.tsv -max_target_seqs 5
+# tsv output was converted to bed using -
+awk 'BEGIN {FS=OFS="\t"} {if($9>$10) {x=$10; $10=$9; $9=x; print $2, $9, $10, $1, $7, $8, $3} else {print $2, $9, $10, $1, $7, $8, $3}}' out.tsv > out.bed
+
+# I make .gtf file (I think manually). Then using gffread, I either transcribe it or translate it
+gffread -y DAB06.fa -g CS2_hap1.fa DAB06.gtf
