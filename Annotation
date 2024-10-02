@@ -11,3 +11,44 @@ awk 'BEGIN {FS=OFS="\t"} {if($9>$10) {x=$10; $10=$9; $9=x; print $2, $9, $10, $1
 
 # I make .gtf file (I think manually). Then using gffread, I either transcribe it or translate it
 gffread -y DAB06.fa -g CS2_hap1.fa DAB06.gtf
+
+### Initial annotation was made on the hifiasm assemblies and then the annotation was lifted over using the program LiftOff on the RagTag scaffolded assemblies
+The script used is as follow:
+########################################### LiftOver from hifiasm to RagTag #####################################
+#!/bin/sh
+in="/data1/CluHar/PacBio/CCS_data/MHC/analysis_for_paper/Hifiasm_annotations/Renamed/gtf/"
+out="/data1/CluHar/PacBio/CCS_data/MHC/analysis_for_paper/RagTag_annotations/"
+RagTag="/data1/CluHar/PacBio/CCS_data/denovo/hifiasm/RagTag/assemblies/"
+hifiasm="/data1/CluHar/PacBio/CCS_data/denovo/hifiasm/assemblies/Renamed/"
+
+samples="F1_hap1 F1_hap2 F2_hap1 F2_hap2 F3_hap1 F3_hap2"
+
+mkdir -p ${out}Input_LiftOff ${out}unmapped ${out}intermediate_files ${out}gtf
+
+# make input gtf files
+for i in ${samples}; do
+        grep "Liftoff" ${in}$i.gtf > ${out}Input_LiftOff/${i}_LiftOff.gtf
+        grep "manual" ${in}$i.gtf > ${out}Input_LiftOff/${i}_manual.gtf
+done;
+wait;
+
+# do LiftOff
+for i in ${samples}; do
+        liftoff -g ${out}Input_LiftOff/${i}_LiftOff.gtf -o ${out}${i}_LiftOff.gtf -u ${out}unmapped/${i}_LiftOff -dir ${out}intermediate_files/${i}_LiftOff ${RagTag}$i.fa ${hifiasm}$i.fa &
+        liftoff -g ${out}Input_LiftOff/${i}_manual.gtf -o ${out}${i}_manual.gtf -u ${out}unmapped/${i}_manual -dir ${out}intermediate_files/${i}_manual ${RagTag}$i.fa ${hifiasm}$i.fa &
+done;
+wait;
+
+# combine LiftOff and manual gtfs
+for i in ${samples}; do
+        sed '1,2d' ${out}${i}_LiftOff.gtf > ${out}temp_${i}_LiftOff.gtf
+        sed '1,2d' ${out}${i}_manual.gtf > ${out}temp_${i}_manual.gtf
+        cat ${out}temp_${i}_LiftOff.gtf ${out}temp_${i}_manual.gtf > ${out}gtf/$i.gtf
+done;
+
+wait;
+
+#rm ${out}temp* ${out}*LiftOff.gtf ${out}*manual.gtf
+mkdir -p ${out}miscallaneous_files
+mv ${out}*LiftOff.gtf ${out}*manual.gtf ${out}miscallaneous_files
+rm -r ${out}unmapped ${out}intermediate_files
