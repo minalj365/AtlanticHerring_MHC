@@ -1,1 +1,1 @@
-
+RagTag scaffolded assemblies are in .../denovo/hifiasm/RagTag/assemblies/
