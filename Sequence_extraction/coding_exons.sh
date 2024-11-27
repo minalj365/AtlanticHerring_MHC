@@ -98,3 +98,4 @@ wait;
 rm -r ${out}concatenate ${out}*fa*  ${out}to_bash*
 mv ${out}sequences/*fa ${out}
 rm -r ${out}sequences
+rm *1.4* *1.5*
