@@ -1,0 +1,12 @@
+### coloring Cys ###
+select my_residue, resn CYS
+color red, my_residue
+select none				# unselect
+
+### coloring one of the monomers of the heterodimer
+split_chains BS1_hap1_DA21_heterodimer_06776_relaxed_rank_001_alphafold2_multimer_v3_model_4_seed_000
+select monomer_A, chain A
+color blue, monomer_A
+select none
+
+
