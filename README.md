@@ -31,21 +31,12 @@ This work sets a new benchmark for understanding vertebrate MHC gene diversity.
 
 ## 📂 Repository Structure
 AtlanticHerring_MHC/
-├── Annotation/              # Scripts for gene annotation and curation of MHC class II genes in reference and PacBio assemblies
-├── Genome_and_gene_organization/ # Genome organization in 29 haploid genomes and gene organization at all 9 MHC loci per haplotype
-├── Nucleotide_diversity/    # Scripts to extract sequences and calculate nucleotide diversity (π)
-├── de_novo_assemblies/      # Scripts to build de novo genome assemblies from PacBio HiFi data
-├── Protein_modeling/        # Scripts to calculate Shannon entropy and map it on predicted protein structures
+├── Annotation/               # Scripts for gene annotation and curation of MHC class II genes in reference and PacBio assemblies
+├── Genome_and_gene_organization/  
+│   └── Genome organization in 29 haploid genomes and gene organization at all 9 MHC loci per haplotype
+├── Nucleotide_diversity/     # Scripts to extract sequences and calculate nucleotide diversity (π)
+├── de_novo_assemblies/       # Scripts to build de novo genome assemblies from PacBio HiFi data
+├── Protein_modeling/         # Scripts to calculate Shannon entropy and map it on predicted protein structures
 ├── Supertype_identification/ # Analysis to identify major allelic groups (supertypes) at Locus 2 and 4
-├── dNdS_analysis/           # Scripts to perform dN/dS analysis (PAML) and highlight positively selected residues in alignments
-└── README.md                # Project documentation
-
-AtlanticHerring_MHC/
-├── Annotation/ # Scripts for gene annotation and curation of MHC class II genes in reference and PacBio assemblies
-├── Genome_and_gene_organization/ # MHC II organization in 29 haploid genomes (genome organization) and all 9 loci for each haploid genome (gene organization)
-├── Nucleotide_diversity/ # Scripts for extracting sequences and calculate nucleotide diversity parameter π
-├── de_novo_assemblies/ # Scripts to build de novo genome assemblies from PacBio data
-├── Protein_modeling/ # Script to calculate shannon entropy values to plot on the predicted protein structure
-├── Supertype_identification/ # Initial analysis to find major allelic groups in Locus 2 and 4
-├── dNdS_analysis/ # Scripts for extracting sequences and perform dN/dS analysis in PAML, and plot the positively selected residues on the amino acid alignment for each gene.
-└── README.md
+├── dNdS_analysis/            # Scripts to perform dN/dS analysis (PAML) and highlight positively selected residues in alignments
+└── README.md                 # Project documentation
