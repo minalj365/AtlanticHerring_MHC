@@ -2,7 +2,7 @@
 
 This repository contains scripts and resources associated with the study:
 
-**Unheralded high MHC Class II polymorphism in the abundant Atlantic herring resolved by long-read sequencing**  now available on bioRxiv with doi - 10.1101/2025.06.08.658498v1
+**Unheralded high MHC Class II polymorphism in the abundant Atlantic herring resolved by long-read sequencing**  now available on bioRxiv - [https://www.biorxiv.org/content/10.1101/2025.06.08.658498v1]
 
 ## 📜 Overview
 
