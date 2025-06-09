@@ -42,16 +42,3 @@ Below is an overview of the directory structure:
 | `Supertype_identification/`     | Identification and clustering of allelic supertypes at Locus 2 and Locus 4 based on amino acid similarity.                                            |
 | `dNdS_analysis/`                | Scripts to calculate dN/dS ratios using PAML, visualize positively selected residues, and compare selection signatures with human MHC genes.          |
 | `README.md`                     | This file. Provides a description of the repository and its organization.                                                                             |
-
-
-README.md
-This file — provides project description and directory guide.AtlanticHerring_MHC/
-├── Annotation/               # Scripts for gene annotation and curation of MHC class II genes in reference and PacBio assemblies
-├── Genome_and_gene_organization/  
-│   └── Genome organization in 29 haploid genomes and gene organization at all 9 MHC loci per haplotype
-├── Nucleotide_diversity/     # Scripts to extract sequences and calculate nucleotide diversity (π)
-├── de_novo_assemblies/       # Scripts to build de novo genome assemblies from PacBio HiFi data
-├── Protein_modeling/         # Scripts to calculate Shannon entropy and map it on predicted protein structures
-├── Supertype_identification/ # Analysis to identify major allelic groups (supertypes) at Locus 2 and 4
-├── dNdS_analysis/            # Scripts to perform dN/dS analysis (PAML) and highlight positively selected residues in alignments
-└── README.md                 # Project documentation
