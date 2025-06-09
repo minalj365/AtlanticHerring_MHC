@@ -1,0 +1,2 @@
+Please follow the following link for all steps for building de novo assemblies:
+https://github.com/minalj365/Herring_Inversions/tree/main/PacBio%20HiFi%20data%20analysis
