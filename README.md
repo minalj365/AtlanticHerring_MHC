@@ -20,7 +20,6 @@ This work sets a new benchmark for understanding vertebrate MHC gene diversity.
 ---
 
 ## 📂 Repository Structure
-Below is an overview of the directory structure:
 
 | Folder                          | Description                                                                                                                                           |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
