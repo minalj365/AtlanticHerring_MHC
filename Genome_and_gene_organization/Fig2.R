@@ -1,3 +1,5 @@
+##################### April 24, 2024 #################
+########### Fig. 2 #############
 rm(list=ls())
 library(gggenomes)
 library(ggrepel)
@@ -7,7 +9,15 @@ library(ggforce)
 library(Cairo)
 library(cowplot)
 
-setwd("C:/Users/minal03/OneDrive - Texas A&M University/U-Drive/MHC/2024/Figures_and_Tables/Fig2/")
+setwd("C:/Users/minal03/OneDrive - Texas A&M University/U-Drive/MHC/Figures_final/Fig2_Locus1_gggenome")
+
+desired_order <- c(
+  "BS1_hap1_chr7", "BS1_hap2_chr7",
+  "BS4_hap1_chr7", "BS4_hap2_chr7",
+  "CS8_hap1_chr7", "CS8_hap2_chr7",  
+  "CS10_hap1_chr7", "CS10_hap2_chr7",
+  "NSSH2_hap1_chr7", "NSSH2_hap2_chr7"
+)
 
 GeneTrack <- read.csv("Locus1_positions.csv") %>%
   # chage start and end to start with 0
@@ -21,6 +31,7 @@ GeneTrack <- read.csv("Locus1_positions.csv") %>%
          number = gene) %>%
   mutate(lineage = str_sub(lineage, 2, 2)) %>%
   mutate(number = str_sub(number, start = 4)) %>%
+  mutate(seq_id = factor(seq_id, levels = desired_order)) %>%
   unite('colors', lineage:number, sep="")
 # strand 
 #group_by(seq_id) %>%
@@ -32,75 +43,30 @@ GeneTrack <- read.csv("Locus1_positions.csv") %>%
 # preparing length track
 SeqTrack <- GeneTrack %>%
   group_by(seq_id) %>%
-  summarise(length=max(end))
+  summarise(length=max(end)) %>%
+  mutate(seq_id = factor(seq_id, levels = desired_order))
 
 ## plot
 gggenome <- gggenomes(seqs=SeqTrack, genes=GeneTrack)  
-Fig2A <- gggenome +
-  geom_seq(size=0.6) +         # draw contig/chromosome lines
-  geom_bin_label(size = 3) +   # label each sequence 
-  #geom_gene(aes(fill=gene), size=2) + 
-  #geom_gene(aes(fill=gene), size=2) +        # draw genes as arrow
+colors <- c("#0072B2", "#D55E00", "#009E73", "#CC79A7")
+
+Fig2 <- gggenome +
+  geom_seq(size=0.4) +         # draw contig/chromosome lines
+  geom_bin_label(size = 2.5) +   # label each sequence 
   #geom_gene_label(aes(label=gene, color = gene), fontface = "italic", size = 3, angle = 32, nudge_y = 0.15, nudge_x = -0.2) +
   
-  geom_gene(size = 2.2) +        # draw genes as arrow
+  geom_gene(size = 1.8) +        # draw genes as arrow
   geom_text_repel(aes(x=(x+xend)/2, y=y+.1, label=gene, color = colors), data=genes(),
-                  size = 2.8, fontface = "bold", hjust=0, vjust=0, angle=30, direction = "x", min.segment.length = Inf) +
-  theme(axis.text.x = element_text(size=10), legend.position = "none",
+                  size = 2.3, fontface = "bold.italic", hjust=0, vjust=0, angle=30, direction = "x", min.segment.length = Inf, box.padding = 0.1) +
+  theme(axis.text.x = element_text(size=8), legend.position = "none",
         plot.title = element_text(hjust = 0.5, face = "bold")) + 
-  scale_x_bp(suffix = "b", sep=" ")
-  #labs(tag = "a")
+  scale_color_manual(values = colors) +
+  scale_x_continuous(
+    name = "Position (kb)",
+    breaks = seq(0, 150000, by = 50000),
+    limits = c(-25000, 155000),
+    labels = function(x) paste0(x/1000, " kb"))
+Fig2
 
-ggsave(paste0("Fig2A.png"), Fig2A, width = 4, height = 4, dpi = 300)
-ggsave(paste0("Fig2A.pdf"), Fig2A, width = 4, height = 4, dpi = 300)
-
-
-
-
-
-
-
-############### Fig 2B ####################
-# dotplot of haplotypes (NSSH10)
-
-setwd("C:/Users/minal03/OneDrive - Texas A&M University/U-Drive/MHC/Figures/dotplot_haplotypes/")
-
-my_thm= list( theme_bw(base_size = 12),
-              theme(panel.grid.minor = element_blank()),
-              theme(panel.grid.major.y = element_line(color = "grey")),
-              theme(axis.line = element_line(colour = "black")),
-              theme(aspect.ratio =1,legend.position = "none"),
-              theme(axis.text=element_text(size=12)))
-
-
-mydot <- read.table("dot.txt", header = FALSE) #read the coordinates for the dots
-myline <- read.table("line.txt", header = FALSE) #read the coordinates for the lines
-myxtics <- read.table("xticks.txt", header = TRUE) #read the x axis ticks
-myytics <- read.table("yticks.txt", header = TRUE) #read the y-axis ticks
-mycolor <- c("red","blue") #assign the colors to your own color scheme
-names(mycolor) <- c("F","R") #name the colors with the forward and reverse codes. F and R should match the first and second color, respectively
-
-Fig2B <- ggplot(mydot, aes(x = V1, y=V2, color=V3)) + geom_point() #create the ggplot object with the dots
-#now create the plot. Parameters can be modified
-Fig2B <- Fig2B + geom_segment(data = myline, aes(x=V1, y=V2, xend=V3, yend=V4, color = V5)) + 
-  scale_y_continuous(labels = function(x)round(x/1000, 2), name = "Haplotype 1 (kb)") +
-  scale_x_continuous(labels = function(x)round(x/1000, 2), name = "Haplotype 2 (kb)") +
-  scale_color_manual(values = mycolor) +
-  theme_bw(base_size = 12) +
-  #theme(strip.background = element_blank(),
-  # strip.text.x = element_text(face = "bold", size = 14))
-  theme(strip.background = element_blank(),
-        axis.text.y = element_text(size = 8),
-        axis.text.x = element_text(size = 8),
-        axis.title.y = element_text(size = 10),
-        axis.title.x = element_text(size = 10),
-        aspect.ratio =1,legend.position = "none") 
-  labs(tag = "b")
-
-
-ggsave(paste0("Fig2B.png"), Fig2B, width = 2.8, height = 3, dpi = 300)
-ggsave(paste0("Fig2B.pdf"), Fig2B, width = 2.8, height = 3, dpi = 300)
-
-plot_grid(Fig2A, Fig2B, labels = c('a', 'b'), label_size = 6, nrow=1, rel_widths = c(2, 1))
-
-all_PLOTS<-plot_grid(p2, p3, p1, align = "v", nrow = 3)
+ggsave(paste0("Fig2.png"), Fig2, width = 7.5, height = 4.5, dpi = 300)
+ggsave(paste0("Fig2.pdf"), Fig2, width = 7.5, height = 4.5, dpi = 300)
