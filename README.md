@@ -19,16 +19,6 @@ This work sets a new benchmark for understanding vertebrate MHC gene diversity.
 
 ---
 
-## 🔬 Project Goals
-
-- Identify and annotate MHC Class II genes across haplotype assemblies
-- Measure nucleotide and amino acid diversity (π, dN/dS)
-- Model MHC Class II protein structure and peptide-binding residues
-- Group alleles into supertypes and assess their co-segregation
-- Provide reproducible scripts and workflows for the above analyses
-
----
-
 ## 📂 Repository Structure
 Below is an overview of the directory structure:
 
