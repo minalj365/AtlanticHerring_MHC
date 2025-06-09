@@ -30,7 +30,22 @@ This work sets a new benchmark for understanding vertebrate MHC gene diversity.
 ---
 
 ## 📂 Repository Structure
-AtlanticHerring_MHC/
+Below is an overview of the directory structure:
+
+| Folder                          | Description                                                                                                                                           |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Annotation/`                   | Scripts for manual annotation and curation of MHC class II genes in the Atlantic herring reference genome and PacBio haplotype assemblies.            |
+| `Genome_and_gene_organization/` | Genome-wide organization of MHC class II genes across 29 haploid assemblies, including visualization of all 9 loci and their structural arrangements. |
+| `Nucleotide_diversity/`         | Scripts to extract MHC gene sequences and calculate nucleotide diversity (π) across coding regions.                                                   |
+| `de_novo_assemblies/`           | Scripts for generating de novo genome assemblies from PacBio HiFi reads using `hifiasm`.                                                              |
+| `Protein_modeling/`             | Shannon entropy analysis and AlphaFold-based structural modeling of MHC class II proteins, highlighting peptide-binding diversity.                    |
+| `Supertype_identification/`     | Identification and clustering of allelic supertypes at Locus 2 and Locus 4 based on amino acid similarity.                                            |
+| `dNdS_analysis/`                | Scripts to calculate dN/dS ratios using PAML, visualize positively selected residues, and compare selection signatures with human MHC genes.          |
+| `README.md`                     | This file. Provides a description of the repository and its organization.                                                                             |
+
+
+README.md
+This file — provides project description and directory guide.AtlanticHerring_MHC/
 ├── Annotation/               # Scripts for gene annotation and curation of MHC class II genes in reference and PacBio assemblies
 ├── Genome_and_gene_organization/  
 │   └── Genome organization in 29 haploid genomes and gene organization at all 9 MHC loci per haplotype
