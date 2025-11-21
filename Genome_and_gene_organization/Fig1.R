@@ -120,10 +120,22 @@ Fig1C <- ggtree(DB_tree, size=0.7) %<+% labels + geom_tiplab(hjust = -0.05, font
   ggplot2::xlim(0, 0.5)
 
 
+
+
+
+
+
+
 #Fig1 <- (Fig1A | Fig1B) / Fig1C
 Fig1 <- Fig1A / (Fig1B | Fig1C)
 
 
+library(patchwork)
 
-ggsave(paste0("C:/Users/minal03/OneDrive - Texas A&M University/U-Drive/MHC/Figures/Fig1_250318.png"), Fig1, width = 20, height = 23, dpi = 300, units = "cm")
-ggsave(paste0("C:/Users/minal03/OneDrive - Texas A&M University/U-Drive/MHC/Figures/Fig1_250318.pdf"), Fig1, width = 20, height = 23, dpi = 300, units = "cm")
+ggsave(paste0("C:/Users/minal03/OneDrive - Texas A&M University/U-Drive/MHC/Figures/Fig1_251108.png"), Fig1, width = 20, height = 23, dpi = 300, units = "cm")
+ggsave(paste0("C:/Users/minal03/OneDrive - Texas A&M University/U-Drive/MHC/Figures/Fig1_251108.pdf"), Fig1, width = 20, height = 23, dpi = 300, units = "cm")
+
+  
+  
+  
+  
